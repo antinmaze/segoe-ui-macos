@@ -1,8 +1,6 @@
 #!/bin/bash
-# mrbvrz - https://hasansuryaman.com
-# this is part of my basic bash learning, there may be errors in writing this program.
 
-# Colours Variables
+# Color
 RESTORE='\033[0m'
 RED='\033[00;31m'
 GREEN='\033[00;32m'
@@ -44,19 +42,6 @@ function cekkoneksi(){
     fi
 }
 
-function cekwget(){
-    echo -e "$BLUE [ * ] Checking for Wget"
-    sleep 1
-    which wget > /dev/null 2>&1
-    if [ "$?" -eq "0" ]; then
-    echo -e "$GREEN [ ✔ ]$BLUE Wget ➜$GREEN INSTALLED\n"
-        sleep 1
-    else
-        echo -e "$RED [ X ]$BLUE Wget ➜$RED NOT INSTALLED\n"
-        continueWget
-    fi
-}
-
 function cekfont(){
     echo -e "$BLUE [ * ] Checking for Segoe-UI Font"
     sleep 1
@@ -82,7 +67,7 @@ function continueFont(){
 
 function fontinstall(){
     mkdir -p "$DEST_DIR"
-    wget -q https://github.com/mrbvrz/segoe-ui/raw/master/font/segoeui.ttf?raw=true -O "$DEST_DIR"/segoeui.ttf > /dev/null 2>&1 # regular
+    curl https://github.com/mrbvrz/segoe-ui/raw/master/font/segoeui.ttf?raw=true --output "$DEST_DIR"/segoeui.ttf --silent# regular
     wget -q https://github.com/mrbvrz/segoe-ui/raw/master/font/segoeuib.ttf?raw=true -O "$DEST_DIR"/segoeuib.ttf > /dev/null 2>&1 # bold
     wget -q https://github.com/mrbvrz/segoe-ui/raw/master/font/segoeuii.ttf?raw=true -O "$DEST_DIR"/segoeuii.ttf > /dev/null 2>&1 # italic
     wget -q https://github.com/mrbvrz/segoe-ui/raw/master/font/segoeuiz.ttf?raw=true -O "$DEST_DIR"/segoeuiz.ttf > /dev/null 2>&1 # bold italic
