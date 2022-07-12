@@ -1,8 +1,8 @@
-# Segoe-UI Font on Linux (Ubuntu)
+# Segoe-UI Font on macOS
 
 ## TL;DR
 
-<p align="center"><img src="img/segoe.png" alt="segoe" width="600"/></div></p>
+<p align="center"><img src="img/segoe.png" alt="segoe" width="600" height="auto"/></div></p>
 
 
 **Segoe** ***(/ˈsiːɡoʊ/ SEE-goh)*** is a typeface, or family of fonts, that is best known for its use by Microsoft. The company uses Segoe in its online and printed marketing materials, including recent logos for a number of products. Additionally, the Segoe UI font sub-family is used by numerous Microsoft applications.
