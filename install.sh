@@ -1,5 +1,10 @@
 #!/bin/bash
 
+/**
+ * Segoe-UI Font Installer
+ * This script will install Segoe-UI Font on your macOS
+*/
+
 # Color
 RESTORE='\033[0m'
 RED='\033[00;31m'
@@ -17,17 +22,31 @@ LPURPLE='\033[01;35m'
 LCYAN='\033[01;36m'
 WHITE='\033[01;37m'
 
+
+# Font repository
+FONT_REPO="https://github.com/antinmaze/segoe-ui-macos/blob/master/font"
+
 # Destination directory
-#ROOT_UID=0
 DEST_DIR="$HOME/Library/Fonts"
 
-#if [ "$UID" -eq "$ROOT_UID" ]; then
-#  DEST_DIR="/usr/local/share/fonts/Microsoft/TrueType/Segoe UI/"
-#else
-#  DEST_DIR="$HOME/.local/share/fonts/Microsoft/TrueType/Segoe UI/"
-#fi
+# List of the SEGOE fonts to download
+SEGOE_FONTS=(
+    "segoeui.ttf"
+    "segoeuib.ttf"
+    "segoeuii.ttf"
+    "segoeuiz.ttf"
+    "segoeuil.ttf"
+    "seguili.ttf"
+    "segoeuisl.ttf"
+    "seguisli.ttf"
+    "seguisb.ttf"
+    "seguisbi.ttf"
+)
 
-# Check Internet Conection
+
+/**
+ * Cekkoneksi is the function to check internet connection
+ */
 function cekkoneksi(){
     echo -e "$BLUE [ * ] Checking for internet connection"
     sleep 1
@@ -42,6 +61,9 @@ function cekkoneksi(){
     fi
 }
 
+/**
+ * Cekwget is the function to check wget
+ */
 function cekfont(){
     echo -e "$BLUE [ * ] Checking for Segoe-UI Font"
     sleep 1
@@ -55,6 +77,9 @@ function cekfont(){
     fi
 }
 
+/**
+ * ContinueFont is the function to continue the font installation
+ */
 function continueFont(){
     echo -e "$LGREEN Do you want to install Segoe-UI Font? (y)es, (n)o :"
     read  -p ' ' INPUT
@@ -65,43 +90,33 @@ function continueFont(){
   esac
 }
 
+
 function fontinstall(){
-    mkdir -p "$DEST_DIR"
-    curl https://github.com/mrbvrz/segoe-ui/raw/master/font/segoeui.ttf?raw=true --output "$DEST_DIR"/segoeui.ttf --silent# regular
-    wget -q https://github.com/mrbvrz/segoe-ui/raw/master/font/segoeuib.ttf?raw=true -O "$DEST_DIR"/segoeuib.ttf > /dev/null 2>&1 # bold
-    wget -q https://github.com/mrbvrz/segoe-ui/raw/master/font/segoeuii.ttf?raw=true -O "$DEST_DIR"/segoeuii.ttf > /dev/null 2>&1 # italic
-    wget -q https://github.com/mrbvrz/segoe-ui/raw/master/font/segoeuiz.ttf?raw=true -O "$DEST_DIR"/segoeuiz.ttf > /dev/null 2>&1 # bold italic
-    wget -q https://github.com/mrbvrz/segoe-ui/raw/master/font/segoeuil.ttf?raw=true -O "$DEST_DIR"/segoeuil.ttf > /dev/null 2>&1 # light
-    wget -q https://github.com/mrbvrz/segoe-ui/raw/master/font/seguili.ttf?raw=true -O "$DEST_DIR"/seguili.ttf > /dev/null 2>&1 # light italic
-    wget -q https://github.com/mrbvrz/segoe-ui/raw/master/font/segoeuisl.ttf?raw=true -O "$DEST_DIR"/segoeuisl.ttf > /dev/null 2>&1 # semilight
-    wget -q https://github.com/mrbvrz/segoe-ui/raw/master/font/seguisli.ttf?raw=true -O "$DEST_DIR"/seguisli.ttf > /dev/null 2>&1 # semilight italic
-    wget -q https://github.com/mrbvrz/segoe-ui/raw/master/font/seguisb.ttf?raw=true -O "$DEST_DIR"/seguisb.ttf > /dev/null 2>&1 # semibold
-    wget -q https://github.com/mrbvrz/segoe-ui/raw/master/font/seguisbi.ttf?raw=true -O "$DEST_DIR"/seguisbi.ttf > /dev/null 2>&1 # semibold italic
-    fc-cache -f "$DEST_DIR"
+    # Check directory permissions
+    if [ ! -d "$DEST_DIR" ]; then
+        mkdir -p "$DEST_DIR"
+    fi
+
+    # Downloading the fonts
+    for font in "${SEGOE_FONTS[@]}"; do
+        echo "_____________________________ $font _____________________________ "
+        curl "$FONT_REPO/$font" -o "$DEST_DIR/$font"
+    done
+
     echo -e "$GREEN\n Font installed on $LBLUE'$DEST_DIR'"
 }
 
-function wgetinstall(){   
-    sleep 1
-    sudo apt update > /dev/null 2>&1
-    sudo apt install -y wget > /dev/null 2>&1
-}
-
+/**
+ * End is the end function
+ */
 function end(){
     echo -e "$LPURPLE\n Bye..... ;)"
     exit 0
 }
 
-continueWget() {
-  echo -e "$LGREEN Do you want to install Wget? (y)es, (n)o :"
-  read  -p ' ' INPUT
-  case $INPUT in
-    [Yy]* ) wgetinstall;;
-    [Nn]* ) end;;
-    * ) echo -e "$RED\n Sorry, try again."; continueWget;;
-  esac
-}
-
+/**
+ * Banner is the banner function
+ */
 function banner(){
     echo -e "$LYELLOW" ""
     echo -e "                                         _    __            _   "
@@ -121,7 +136,7 @@ main(){
     clear
     banner
     cekkoneksi
-    cekwget
+    #cekwget
     cekfont
 }
 
